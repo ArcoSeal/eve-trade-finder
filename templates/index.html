@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+</head> 
+
+<button id="btn_gettrips">Get Trips</button>
+
+<div id="tripslist"></div>
+
+<script>
+function tripentry(trip) {
+	alert(trip.profit);
+	entry = "<table><tr><th colspan="4">Look at this sick trade:<br></th></tr><tr><td>From:<br></td><td>"+trip.startsystem+"</td><td>Profit:<br></td><td>"+trip.profit+"</td></tr><tr><td>To:</td><td>"+trip.endsystem+"</td><td>PPJ:</td><td>"+trip.profitperjump+"</td></tr><tr><td></td><td></td><td>Capital:</td><td>capital</td></tr><tr><td></td><td></td><td>Volume:</td><td>"+trip.totalvol+"</td></tr><tr><td>Jumps:</td><td>"+Array(trip.jumps+1).join("*")+"<br></td><td>"+trip.jumps+"</td><td></td></tr></table>";
+	alert(entry);
+	return entry;
+}
+
+
+$(document).ready(function(){
+
+   $("#btn_gettrips").click(function(){
+   	$.getJSON("./gettrips", function(data){
+   		var trips = [];
+   		$.each(data, function(ii, trip){
+   			trips.push(tripentry(trip));
+   		});
+   		trips = trips.join("");
+   		$("#tripslist").html(trips);
+   	});
+   });
+
+});
+</script>
+
+</html>
